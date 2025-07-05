@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>宗我のお酒レビュー</title>
+  <title>宗我のお酒レビュー（ジャンル別）</title>
   <style>
-    /* ベースリセット */
+    /* リセット */
     * {
       box-sizing: border-box;
     }
@@ -26,6 +26,33 @@
       font-weight: 700;
       letter-spacing: 2px;
     }
+
+    /* タブメニュー */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: #d2b48c;
+      border-radius: 30px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    .tab.active {
+      background: #a0522d;
+      color: white;
+    }
+    .tab:hover:not(.active) {
+      background: #c69c6d;
+    }
+
+    /* 検索ボックス */
     input[type="search"] {
       width: 100%;
       padding: 10px;
@@ -45,6 +72,10 @@
       box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: box-shadow 0.3s ease;
+      display: none; /* 最初は非表示にしてタブで表示制御 */
+    }
+    .review.show {
+      display: block;
     }
     .review:hover {
       box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
@@ -109,30 +140,24 @@
   </style>
 </head>
 <body>
-  <h1>宗我のお酒レビュー</h1>
+  <h1>宗我のお酒レビュー（ジャンル別）</h1>
 
-  <input type="search" id="search" placeholder="お酒の名前で検索してください" />
+  <!-- タブ -->
+  <div class="tabs" role="tablist" aria-label="ジャンル切り替え">
+    <div class="tab active" role="tab" tabindex="0" aria-selected="true" data-genre="all">すべて</div>
+    <div class="tab" role="tab" tabindex="0" aria-selected="false" data-genre="shochu">焼酎</div>
+    <div class="tab" role="tab" tabindex="0" aria-selected="false" data-genre="chuhai">酎ハイ</div>
+    <div class="tab" role="tab" tabindex="0" aria-selected="false" data-genre="whiskey">ウイスキー</div>
+  </div>
 
+  <!-- 検索 -->
+  <input type="search" id="search" placeholder="お酒の名前で検索してください" aria-label="レビュー検索" />
+
+  <!-- レビュー一覧 -->
   <div id="reviews">
 
-    <div class="review" data-name="久保田 萬寿" tabindex="0" aria-expanded="false" role="button">
-      <div class="review-header">
-        <div class="review-title">🍶 久保田 萬寿</div>
-        <div class="rating">★★★★★</div>
-      </div>
-      <div class="review-body">
-        <div class="review-content">
-          <div class="review-text">
-            <p><strong>種類：</strong>日本酒（純米大吟醸）</p>
-            <p><strong>産地：</strong>新潟県</p>
-            <p>香りが上品で、口当たりがまろやか。刺身と相性抜群。</p>
-          </div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kubota_manju.JPG/320px-Kubota_manju.JPG" alt="久保田 萬寿の瓶" />
-        </div>
-      </div>
-    </div>
-
-    <div class="review" data-name="黒霧島" tabindex="0" aria-expanded="false" role="button">
+    <!-- 焼酎 -->
+    <div class="review" data-genre="shochu" data-name="黒霧島" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🍠 黒霧島</div>
         <div class="rating">★★★★☆</div>
@@ -149,24 +174,102 @@
       </div>
     </div>
 
-    <!-- もっとレビューを増やしたい時は、ここに同じ形式で追加してください -->
+    <!-- 酎ハイ -->
+    <div class="review" data-genre="chuhai" data-name="レモンサワー" tabindex="0" aria-expanded="false" role="button">
+      <div class="review-header">
+        <div class="review-title">🍋 レモンサワー</div>
+        <div class="rating">★★★☆☆</div>
+      </div>
+      <div class="review-body">
+        <div class="review-content">
+          <div class="review-text">
+            <p><strong>種類：</strong>酎ハイ</p>
+            <p>さっぱりして飲みやすい。食事との相性も良い。</p>
+          </div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Lemon_sour%2C_Chuo%2C_Tokyo_2018-05-27.jpg" alt="レモンサワー" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ウイスキー -->
+    <div class="review" data-genre="whiskey" data-name="山崎" tabindex="0" aria-expanded="false" role="button">
+      <div class="review-header">
+        <div class="review-title">🥃 山崎</div>
+        <div class="rating">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-content">
+          <div class="review-text">
+            <p><strong>種類：</strong>ウイスキー</p>
+            <p><strong>産地：</strong>日本</p>
+            <p>芳醇で深みのある味わい。ストレートがおすすめ。</p>
+          </div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yamazaki_%28Suntory%29_bottle.jpg/320px-Yamazaki_%28Suntory%29_bottle.jpg" alt="山崎ウイスキーの瓶" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 追加のレビューはここに同じ形式で足せます -->
 
   </div>
 
   <script>
-    // 検索機能
-    const searchInput = document.getElementById('search');
+    const tabs = document.querySelectorAll('.tab');
     const reviews = document.querySelectorAll('.review');
+    const searchInput = document.getElementById('search');
 
-    searchInput.addEventListener('input', () => {
-      const keyword = searchInput.value.toLowerCase();
+    // 初期表示は「すべて」なので全表示
+    function showReviews(genre, keyword) {
+      const k = keyword.toLowerCase();
       reviews.forEach(review => {
-        const name = review.dataset.name.toLowerCase();
-        review.style.display = name.includes(keyword) ? 'block' : 'none';
+        const reviewGenre = review.dataset.genre;
+        const reviewName = review.dataset.name.toLowerCase();
+        const matchGenre = genre === 'all' || reviewGenre === genre;
+        const matchName = reviewName.includes(k);
+        if (matchGenre && matchName) {
+          review.classList.add('show');
+        } else {
+          review.classList.remove('show');
+          // 閉じる
+          review.querySelector('.review-body').style.display = 'none';
+          review.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // タブクリックでジャンル切替
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        const genre = tab.dataset.genre;
+        const keyword = searchInput.value;
+        showReviews(genre, keyword);
+      });
+      tab.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          tab.click();
+        }
       });
     });
 
-    // クリック・Enterキーで詳細表示切替（アコーディオン）
+    // 検索入力時にフィルター更新
+    searchInput.addEventListener('input', () => {
+      const activeTab = document.querySelector('.tab.active');
+      const genre = activeTab ? activeTab.dataset.genre : 'all';
+      const keyword = searchInput.value;
+      showReviews(genre, keyword);
+    });
+
+    // 初期表示
+    showReviews('all', '');
+
+    // クリック・Enterキーで詳細表示切替
     reviews.forEach(review => {
       review.addEventListener('click', () => {
         toggleReview(review);
