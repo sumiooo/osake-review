@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>宗我のお酒レビュー（ジャンル別）</title>
+  <title>宗我のお酒レビュー（ジャンル別＆評価順ソート付き）</title>
   <style>
     /* リセット */
     * {
@@ -59,7 +59,25 @@
       font-size: 1rem;
       border: 2px solid #c69c6d;
       border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    /* ソートボタン */
+    #sortBtn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #a0522d;
+      background: #fff8f0;
+      color: #a0522d;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
       margin-bottom: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #sortBtn:hover {
+      background-color: #a0522d;
+      color: white;
     }
 
     /* レビューカード */
@@ -72,7 +90,7 @@
       box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: box-shadow 0.3s ease;
-      display: none; /* 最初は非表示にしてタブで表示制御 */
+      display: none; /* 最初は非表示 */
     }
     .review.show {
       display: block;
@@ -140,7 +158,7 @@
   </style>
 </head>
 <body>
-  <h1>宗我のお酒レビュー（ジャンル別）</h1>
+  <h1>宗我のお酒レビュー（ジャンル別＆評価順ソート付き）</h1>
 
   <!-- タブ -->
   <div class="tabs" role="tablist" aria-label="ジャンル切り替え">
@@ -153,11 +171,14 @@
   <!-- 検索 -->
   <input type="search" id="search" placeholder="お酒の名前で検索してください" aria-label="レビュー検索" />
 
+  <!-- ソートボタン -->
+  <button id="sortBtn" aria-label="評価順に並べ替え">評価順に並べ替え</button>
+
   <!-- レビュー一覧 -->
   <div id="reviews">
 
     <!-- 焼酎 -->
-    <div class="review" data-genre="shochu" data-name="黒霧島" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="shochu" data-name="黒霧島" data-rating="4" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🍠 黒霧島</div>
         <div class="rating">★★★★☆</div>
@@ -175,7 +196,7 @@
     </div>
 
     <!-- 酎ハイ -->
-    <div class="review" data-genre="chuhai" data-name="レモンサワー" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="chuhai" data-name="レモンサワー" data-rating="3" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🍋 レモンサワー</div>
         <div class="rating">★★★☆☆</div>
@@ -192,7 +213,7 @@
     </div>
 
     <!-- ウイスキー -->
-    <div class="review" data-genre="whiskey" data-name="山崎" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="whiskey" data-name="山崎" data-rating="5" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🥃 山崎</div>
         <div class="rating">★★★★★</div>
@@ -215,10 +236,12 @@
 
   <script>
     const tabs = document.querySelectorAll('.tab');
+    const reviewsContainer = document.getElementById('reviews');
     const reviews = document.querySelectorAll('.review');
     const searchInput = document.getElementById('search');
+    const sortBtn = document.getElementById('sortBtn');
 
-    // 初期表示は「すべて」なので全表示
+    // 表示制御関数（ジャンル・検索）
     function showReviews(genre, keyword) {
       const k = keyword.toLowerCase();
       reviews.forEach(review => {
@@ -230,7 +253,7 @@
           review.classList.add('show');
         } else {
           review.classList.remove('show');
-          // 閉じる
+          // 詳細は閉じる
           review.querySelector('.review-body').style.display = 'none';
           review.setAttribute('aria-expanded', 'false');
         }
@@ -293,6 +316,22 @@
         review.setAttribute('aria-expanded', 'true');
       }
     }
+
+    // ソートボタン押下で評価順ソート
+    sortBtn.addEventListener('click', () => {
+      // 表示中のレビューだけ取得
+      const visibleReviews = Array.from(reviews).filter(r => r.classList.contains('show'));
+
+      // 評価の数値で降順ソート
+      visibleReviews.sort((a, b) => {
+        const ratingA = Number(a.dataset.rating);
+        const ratingB = Number(b.dataset.rating);
+        return ratingB - ratingA;
+      });
+
+      // DOMに並べ替え反映
+      visibleReviews.forEach(r => reviewsContainer.appendChild(r));
+    });
   </script>
 </body>
 </html>
