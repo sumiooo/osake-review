@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>宗我のお酒レビュー（ジャンル別＆評価順ソート付き）</title>
+  <title>宗我のお酒レビュー（複数並び替え対応）</title>
   <style>
     /* リセット */
     * {
@@ -61,23 +61,26 @@
       border-radius: 8px;
       margin-bottom: 10px;
     }
-    /* ソートボタン */
-    #sortBtn {
+
+    /* 並び替えセレクトボックス */
+    label[for="sortSelect"] {
+      font-weight: 700;
+      color: #8b4513;
+    }
+    #sortSelect {
       width: 100%;
       padding: 10px;
       font-size: 1rem;
       border: 2px solid #a0522d;
-      background: #fff8f0;
-      color: #a0522d;
-      font-weight: 700;
       border-radius: 8px;
-      cursor: pointer;
       margin-bottom: 20px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+      background: #fff8f0;
+      color: #3e2f1c;
     }
-    #sortBtn:hover {
-      background-color: #a0522d;
-      color: white;
+    #sortSelect:hover, #sortSelect:focus {
+      border-color: #c69c6d;
+      outline: none;
     }
 
     /* レビューカード */
@@ -158,7 +161,7 @@
   </style>
 </head>
 <body>
-  <h1>宗我のお酒レビュー（ジャンル別＆評価順ソート付き）</h1>
+  <h1>宗我のお酒レビュー（複数並び替え対応）</h1>
 
   <!-- タブ -->
   <div class="tabs" role="tablist" aria-label="ジャンル切り替え">
@@ -171,14 +174,20 @@
   <!-- 検索 -->
   <input type="search" id="search" placeholder="お酒の名前で検索してください" aria-label="レビュー検索" />
 
-  <!-- ソートボタン -->
-  <button id="sortBtn" aria-label="評価順に並べ替え">評価順に並べ替え</button>
+  <!-- 並び替え -->
+  <label for="sortSelect">並び替え:</label>
+  <select id="sortSelect" aria-label="並び替え選択">
+    <option value="rating-desc">評価が高い順</option>
+    <option value="rating-asc">評価が低い順</option>
+    <option value="price-asc">値段が安い順</option>
+    <option value="price-desc">値段が高い順</option>
+  </select>
 
   <!-- レビュー一覧 -->
   <div id="reviews">
 
     <!-- 焼酎 -->
-    <div class="review" data-genre="shochu" data-name="黒霧島" data-rating="4" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="shochu" data-name="黒霧島" data-rating="4" data-price="1500" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🍠 黒霧島</div>
         <div class="rating">★★★★☆</div>
@@ -188,6 +197,7 @@
           <div class="review-text">
             <p><strong>種類：</strong>芋焼酎</p>
             <p><strong>産地：</strong>宮崎県</p>
+            <p><strong>価格：</strong>1500円</p>
             <p>芋の香りが強くてコクがある。ロックで飲むと風味が楽しめる。</p>
           </div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Kurokirishima.JPG/320px-Kurokirishima.JPG" alt="黒霧島の瓶" />
@@ -196,7 +206,7 @@
     </div>
 
     <!-- 酎ハイ -->
-    <div class="review" data-genre="chuhai" data-name="レモンサワー" data-rating="3" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="chuhai" data-name="レモンサワー" data-rating="3" data-price="500" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🍋 レモンサワー</div>
         <div class="rating">★★★☆☆</div>
@@ -205,6 +215,7 @@
         <div class="review-content">
           <div class="review-text">
             <p><strong>種類：</strong>酎ハイ</p>
+            <p><strong>価格：</strong>500円</p>
             <p>さっぱりして飲みやすい。食事との相性も良い。</p>
           </div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Lemon_sour%2C_Chuo%2C_Tokyo_2018-05-27.jpg" alt="レモンサワー" />
@@ -213,7 +224,7 @@
     </div>
 
     <!-- ウイスキー -->
-    <div class="review" data-genre="whiskey" data-name="山崎" data-rating="5" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="whiskey" data-name="山崎" data-rating="5" data-price="7000" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🥃 山崎</div>
         <div class="rating">★★★★★</div>
@@ -223,6 +234,7 @@
           <div class="review-text">
             <p><strong>種類：</strong>ウイスキー</p>
             <p><strong>産地：</strong>日本</p>
+            <p><strong>価格：</strong>7000円</p>
             <p>芳醇で深みのある味わい。ストレートがおすすめ。</p>
           </div>
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yamazaki_%28Suntory%29_bottle.jpg/320px-Yamazaki_%28Suntory%29_bottle.jpg" alt="山崎ウイスキーの瓶" />
@@ -230,7 +242,7 @@
       </div>
     </div>
 
-    <!-- 追加のレビューはここに同じ形式で足せます -->
+    <!-- ここにレビューを追加可能 -->
 
   </div>
 
@@ -239,7 +251,7 @@
     const reviewsContainer = document.getElementById('reviews');
     const reviews = document.querySelectorAll('.review');
     const searchInput = document.getElementById('search');
-    const sortBtn = document.getElementById('sortBtn');
+    const sortSelect = document.getElementById('sortSelect');
 
     // 表示制御関数（ジャンル・検索）
     function showReviews(genre, keyword) {
@@ -272,6 +284,7 @@
         const genre = tab.dataset.genre;
         const keyword = searchInput.value;
         showReviews(genre, keyword);
+        sortReviews(); // 並び替えも実行
       });
       tab.addEventListener('keydown', e => {
         if(e.key === 'Enter' || e.key === ' ') {
@@ -287,10 +300,8 @@
       const genre = activeTab ? activeTab.dataset.genre : 'all';
       const keyword = searchInput.value;
       showReviews(genre, keyword);
+      sortReviews(); // 並び替えも実行
     });
-
-    // 初期表示
-    showReviews('all', '');
 
     // クリック・Enterキーで詳細表示切替
     reviews.forEach(review => {
@@ -317,21 +328,36 @@
       }
     }
 
-    // ソートボタン押下で評価順ソート
-    sortBtn.addEventListener('click', () => {
+    // 並び替え処理
+    function sortReviews() {
+      const value = sortSelect.value;
       // 表示中のレビューだけ取得
       const visibleReviews = Array.from(reviews).filter(r => r.classList.contains('show'));
 
-      // 評価の数値で降順ソート
       visibleReviews.sort((a, b) => {
-        const ratingA = Number(a.dataset.rating);
-        const ratingB = Number(b.dataset.rating);
-        return ratingB - ratingA;
+        if(value === 'rating-desc'){
+          return Number(b.dataset.rating) - Number(a.dataset.rating);
+        } else if(value === 'rating-asc'){
+          return Number(a.dataset.rating) - Number(b.dataset.rating);
+        } else if(value === 'price-asc'){
+          return Number(a.dataset.price) - Number(b.dataset.price);
+        } else if(value === 'price-desc'){
+          return Number(b.dataset.price) - Number(a.dataset.price);
+        }
+        return 0;
       });
 
-      // DOMに並べ替え反映
       visibleReviews.forEach(r => reviewsContainer.appendChild(r));
+    }
+
+    // 並び替えセレクトボックス変更でソート実行
+    sortSelect.addEventListener('change', () => {
+      sortReviews();
     });
+
+    // 初期表示
+    showReviews('all', '');
+    sortReviews();
   </script>
 </body>
 </html>
