@@ -1,20 +1,195 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>お酒レビュー</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>宗我のお酒レビュー</title>
+  <style>
+    /* ベースリセット */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff8f0;
+      color: #3e2f1c;
+      margin: 0;
+      padding: 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #a0522d;
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    input[type="search"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #c69c6d;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* レビューカード */
+    .review {
+      background: white;
+      border: 2px solid #d2b48c;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+    .review:hover {
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .review-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #8b4513;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .rating {
+      color: #e0a800;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .review-body {
+      margin-top: 10px;
+      display: none; /* 最初は非表示 */
+      color: #5a4630;
+    }
+    .review img {
+      max-width: 120px;
+      border-radius: 10px;
+      margin-left: 15px;
+      object-fit: cover;
+    }
+
+    /* レビュー内容内のレイアウト */
+    .review-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .review-text {
+      flex: 1 1 60%;
+      min-width: 200px;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+        max-width: 100%;
+      }
+      .review-content {
+        flex-direction: column;
+      }
+      .review img {
+        margin: 10px 0 0 0;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>お酒レビューサイト</h1>
+  <h1>宗我のお酒レビュー</h1>
 
-  <h2>🍶 久保田 萬寿</h2>
-  <p>種類：日本酒（純米大吟醸）</p>
-  <p>感想：香りが上品で、口当たりがまろやか。</p>
-  <p>評価：★★★★★</p>
+  <input type="search" id="search" placeholder="お酒の名前で検索してください" />
 
-  <h2>🍠 黒霧島</h2>
-  <p>種類：芋焼酎</p>
-  <p>感想：芋の香りが強くてコクがある。ロックがおすすめ。</p>
-  <p>評価：★★★★☆</p>
+  <div id="reviews">
+
+    <div class="review" data-name="久保田 萬寿" tabindex="0" aria-expanded="false" role="button">
+      <div class="review-header">
+        <div class="review-title">🍶 久保田 萬寿</div>
+        <div class="rating">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-content">
+          <div class="review-text">
+            <p><strong>種類：</strong>日本酒（純米大吟醸）</p>
+            <p><strong>産地：</strong>新潟県</p>
+            <p>香りが上品で、口当たりがまろやか。刺身と相性抜群。</p>
+          </div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kubota_manju.JPG/320px-Kubota_manju.JPG" alt="久保田 萬寿の瓶" />
+        </div>
+      </div>
+    </div>
+
+    <div class="review" data-name="黒霧島" tabindex="0" aria-expanded="false" role="button">
+      <div class="review-header">
+        <div class="review-title">🍠 黒霧島</div>
+        <div class="rating">★★★★☆</div>
+      </div>
+      <div class="review-body">
+        <div class="review-content">
+          <div class="review-text">
+            <p><strong>種類：</strong>芋焼酎</p>
+            <p><strong>産地：</strong>宮崎県</p>
+            <p>芋の香りが強くてコクがある。ロックで飲むと風味が楽しめる。</p>
+          </div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Kurokirishima.JPG/320px-Kurokirishima.JPG" alt="黒霧島の瓶" />
+        </div>
+      </div>
+    </div>
+
+    <!-- もっとレビューを増やしたい時は、ここに同じ形式で追加してください -->
+
+  </div>
+
+  <script>
+    // 検索機能
+    const searchInput = document.getElementById('search');
+    const reviews = document.querySelectorAll('.review');
+
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.toLowerCase();
+      reviews.forEach(review => {
+        const name = review.dataset.name.toLowerCase();
+        review.style.display = name.includes(keyword) ? 'block' : 'none';
+      });
+    });
+
+    // クリック・Enterキーで詳細表示切替（アコーディオン）
+    reviews.forEach(review => {
+      review.addEventListener('click', () => {
+        toggleReview(review);
+      });
+      review.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleReview(review);
+        }
+      });
+    });
+
+    function toggleReview(review) {
+      const body = review.querySelector('.review-body');
+      const isExpanded = review.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        body.style.display = 'none';
+        review.setAttribute('aria-expanded', 'false');
+      } else {
+        body.style.display = 'block';
+        review.setAttribute('aria-expanded', 'true');
+      }
+    }
+  </script>
 </body>
 </html>
