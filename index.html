@@ -177,11 +177,14 @@
   <!-- 並び替え -->
   <label for="sortSelect">並び替え:</label>
   <select id="sortSelect" aria-label="並び替え選択">
-    <option value="rating-desc">評価が高い順</option>
-    <option value="rating-asc">評価が低い順</option>
-    <option value="price-asc">値段が安い順</option>
-    <option value="price-desc">値段が高い順</option>
+  <option value="rating-desc">評価が高い順</option>
+  <option value="rating-asc">評価が低い順</option>
+  <option value="price-asc">値段が安い順</option>
+  <option value="price-desc">値段が高い順</option>
+  <option value="alcohol-desc">アルコール度数が高い順</option>
+  <option value="alcohol-asc">アルコール度数が低い順</option>
   </select>
+
 
   <!-- レビュー一覧 -->
   <div id="reviews">
@@ -206,7 +209,7 @@
     </div>
 
     <!-- 酎ハイ -->
-    <div class="review" data-genre="chuhai" data-name="杜の香　GIN & MOJITO" data-rating="3" data-price="195" tabindex="0" aria-expanded="false" role="button">
+    <div class="review" data-genre="chuhai" data-name="杜の香　GIN & MOJITO" data-rating="3" data-price="195" data-alcohol="7" tabindex="0" aria-expanded="false" role="button">
       <div class="review-header">
         <div class="review-title">🌿杜の香　GIN & MOJITO</div>
         <div class="rating">★★★★☆</div>
@@ -216,6 +219,7 @@
           <div class="review-text">
             <p><strong>種類：</strong>酎ハイ</p>
             <p><strong>価格：</strong>195円</p>
+            <p><strong>アルコール度数：</strong>7%</p>
             <p>1口飲んだ瞬間、ミントを直接嗅いだような爽やかな香りとフレッシュなライムのような果実感がありました。
               味は満点なのですが、プレミアムとあるように少し高いような気がしたため、星4にしました。</p>
             <p><a href="https://products.kirin.co.jp/alcohol/rtd/detail.html?id=7917" target="_blank" rel="noopener">公式サイトはこちら</a></p>
@@ -224,28 +228,58 @@
         </div>
       </div>
     </div>
+    
+    <div class="review" data-genre="chuhai" data-name="－196無糖　アセロラダブル" data-rating="3" data-price="159" data-alcohol="7" tabindex="0" aria-expanded="false" role="button">
+      <div class="review-header">
+        <div class="review-title">🍒－196無糖　アセロラダブル</div>
+        <div class="rating">★★★☆☆</div>
+      </div>
+      <div class="review-body">
+        <div class="review-content">
+          <div class="review-text">
+            <p><strong>種類：</strong>酎ハイ</p>
+            <p><strong>価格：</strong>159円</p>
+            <p><strong>アルコール度数：</strong>7%</p>
+            <p>無糖なので食事には合うがアセロラっぽい酸味があるだけなので後半飽きてしまうかも。一緒に食べるおつまみが重要だと思う。一口目はおいしいので星３つ</p>
+            <p><a href="https://products.suntory.co.jp/d/4901777432857/" target="_blank" rel="noopener">公式サイトはこちら</a></p>
+          </div>
+          <img src="https://www.suntory.co.jp/products/pimg/FRFA_R1_20241226.jpg?_x=254&_y=659" alt="あせ" />
+        </div>
+      </div>
+    </div>
 
     
 
 
     <!-- ウイスキー -->
-    <div class="review" data-genre="whiskey" data-name="山崎" data-rating="5" data-price="7000" tabindex="0" aria-expanded="false" role="button">
-      <div class="review-header">
-        <div class="review-title">🥃 山崎</div>
-        <div class="rating">★★★★★</div>
+   <div class="review" 
+     data-genre="whiskey" 
+     data-name="山崎" 
+     data-rating="5" 
+     data-price="7000" 
+     data-alcohol="43" 
+     tabindex="0" 
+     aria-expanded="false" 
+     role="button">
+  <div class="review-header">
+    <div class="review-title">🥃 山崎</div>
+    <div class="rating">★★★★★</div>
+  </div>
+  <div class="review-body">
+    <div class="review-content">
+      <div class="review-text">
+        <p><strong>種類：</strong>ウイスキー</p>
+        <p><strong>産地：</strong>日本</p>
+        <p><strong>価格：</strong>7000円</p>
+        <p><strong>アルコール度数：</strong>43%</p>
+        <p>芳醇で深みのある味わい。ストレートがおすすめ。</p>
+        <p><a href="https://www.suntory.co.jp/whisky/yamazaki/" target="_blank" rel="noopener">公式サイトはこちら</a></p>
       </div>
-      <div class="review-body">
-        <div class="review-content">
-          <div class="review-text">
-            <p><strong>種類：</strong>ウイスキー</p>
-            <p><strong>産地：</strong>日本</p>
-            <p><strong>価格：</strong>7000円</p>
-            <p>芳醇で深みのある味わい。ストレートがおすすめ。</p>
-          </div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yamazaki_%28Suntory%29_bottle.jpg/320px-Yamazaki_%28Suntory%29_bottle.jpg" alt="山崎ウイスキーの瓶" />
-        </div>
-      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yamazaki_%28Suntory%29_bottle.jpg/320px-Yamazaki_%28Suntory%29_bottle.jpg" alt="山崎ウイスキーの瓶" />
     </div>
+  </div>
+</div>
+
 
     <!-- ここにレビューを追加可能 -->
 
@@ -340,17 +374,21 @@
       const visibleReviews = Array.from(reviews).filter(r => r.classList.contains('show'));
 
       visibleReviews.sort((a, b) => {
-        if(value === 'rating-desc'){
-          return Number(b.dataset.rating) - Number(a.dataset.rating);
-        } else if(value === 'rating-asc'){
-          return Number(a.dataset.rating) - Number(b.dataset.rating);
-        } else if(value === 'price-asc'){
-          return Number(a.dataset.price) - Number(b.dataset.price);
-        } else if(value === 'price-desc'){
-          return Number(b.dataset.price) - Number(a.dataset.price);
-        }
-        return 0;
-      });
+  if(value === 'rating-desc'){
+    return Number(b.dataset.rating) - Number(a.dataset.rating);
+  } else if(value === 'rating-asc'){
+    return Number(a.dataset.rating) - Number(b.dataset.rating);
+  } else if(value === 'price-asc'){
+    return Number(a.dataset.price) - Number(b.dataset.price);
+  } else if(value === 'price-desc'){
+    return Number(b.dataset.price) - Number(a.dataset.price);
+  } else if(value === 'alcohol-desc'){
+    return Number(b.dataset.alcohol) - Number(a.dataset.alcohol);
+  } else if(value === 'alcohol-asc'){
+    return Number(a.dataset.alcohol) - Number(b.dataset.alcohol);
+  }
+});
+
 
       visibleReviews.forEach(r => reviewsContainer.appendChild(r));
     }
